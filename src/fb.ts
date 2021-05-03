@@ -17,4 +17,6 @@ const fbsettings: FbConfig = {
 firebase.initializeApp(fbsettings);
 
 export const instance = firebase;
-export const authorization = firebase.auth();
+export const authentication = firebase.auth();
+export const db = firebase.firestore();
+export const storageInfo = firebase.storage();
