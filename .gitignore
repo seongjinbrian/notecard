@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+# Hide env file for firebase
+/.env
 # testing
 /coverage
 

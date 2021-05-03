@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { authorization } from "./fb";
-import Loading from "./view/Loading";
+import Loading from "./pages/Loading";
 import Auth from "./components/Auth";
 function App() {
   return (
