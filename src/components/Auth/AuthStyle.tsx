@@ -7,6 +7,14 @@ export const OuterBox = styled.div`
   flex-direction: column;
 `;
 
+// export const FormBtn = styled.span`
+//   text-align: center;
+//   font-size: 1.5rem;
+//   cursor: pointer;
+//   margin-top: 1.5rem;
+//   width: 100%
+// `;
+
 export const IconContainer = styled.div`
   width: 33px;
   height: 33px;

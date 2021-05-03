@@ -23,30 +23,26 @@ interface AuthFormProp {
   onClick: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }
 
-export default function SignIn( {onClick}: AuthFormProp) {
+function SignIn( {onClick}: AuthFormProp) {
 
   const classes = useStyles();
-  const [userInfo, setUserInfo] = useState({ email: '', password: '' });
-  const [newAccount, setNewAccout] = useState(false);
+  const [user, setUser] = useState({ email: '', password: '' });
+  const [newUser, setNewUser] = useState(false);
   const [error, setError] = useState('');
-  const { email, password } = userInfo;
+  const { email, password } = user;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
+    setUser({ ...user, [name]: value });
   };
+  const handleToggle = (): void => setNewUser((prev: boolean) => !prev);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-
     try {
-      if (newAccount) {
-        await authentication.createUserWithEmailAndPassword(email, password);
-      } else {
-        await authentication.signInWithEmailAndPassword(email, password);
-      }
+      newUser ? await authentication.createUserWithEmailAndPassword(email, password) : await authentication.signInWithEmailAndPassword(email, password)
     } catch (error) {
       setError(error.message);
     }
@@ -72,7 +68,7 @@ export default function SignIn( {onClick}: AuthFormProp) {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={handleChange}
+            onChange={handleInput}
           />
           <TextField
             variant="outlined"
@@ -84,7 +80,7 @@ export default function SignIn( {onClick}: AuthFormProp) {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={handleChange}
+            onChange={handleInput}
           />
           <Button
             type="submit"
@@ -92,10 +88,13 @@ export default function SignIn( {onClick}: AuthFormProp) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={handleToggle}
+            value={newUser ? 'Create Account': 'Sign in'}
           >
-            {newAccount ? 'Sign In' : 'Create Account'}
+            {newUser ? 'Create Account': 'Sign in'}
           </Button>
+          <span onClick={handleToggle}>
+            {newUser ? 'Sign In' : 'Create Account'}
+          </span>
           <AuthContainer>
             <AuthTitle>OR</AuthTitle>
             <BtnContainer>
@@ -109,3 +108,5 @@ export default function SignIn( {onClick}: AuthFormProp) {
     </Container>
   );
 }
+
+export default React.memo(SignIn);

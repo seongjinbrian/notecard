@@ -5,14 +5,8 @@ import Loading from "./pages/Loading";
 import Auth from "./container/Auth";
 import {authentication} from "./fb"
 import Home from "../src/components/Home"
-export interface User {
-  name: string | null;
-  photo: string | null;
-  email: string | null;
-  uid?: string;
-  updateProfile?: ((args:any) => void) | undefined
-}
-export type UserType = User | null;
+import {UserType} from "./model/profle"
+
 function App() {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState<UserType>(null);
@@ -20,17 +14,7 @@ function App() {
 
   useEffect(() => {
     const init = authentication.onAuthStateChanged((user) => {
-      if (user) {
-        setUser({
-          name: user.displayName,
-          photo: user.photoURL,
-          email: user.email,
-          uid: user.uid,
-          updateProfile: (args) => user.updateProfile(args),
-        })
-      } else {
-        setUser(null);
-      }
+      user ? setUser({ name: user.displayName, photo: user.photoURL, email: user.email, uid: user.uid, updateProfile: (args) => user.updateProfile(args)}) : setUser(null)
       setLogin(true);
     });
     return () => init();
@@ -40,13 +24,19 @@ function App() {
 
   return (
     <div>
-      <Suspense fallback={Loading()}>
+      {login ? (
+        <Suspense fallback={Loading()}>
         <BrowserRouter>
           <Switch>
             {directory}
           </Switch>
         </BrowserRouter>
       </Suspense>
+      ) :(
+        <Loading />
+      )    
+      }
+
     </div>
   );
 }
