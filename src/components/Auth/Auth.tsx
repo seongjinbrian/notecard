@@ -3,7 +3,7 @@ import {Avatar, CssBaseline, Button, TextField, Typography, Container} from '@ma
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Google from "../../images/google.svg";
 import { makeStyles } from '@material-ui/core/styles';
-import { authentication, instance } from '../../fb';
+import { authentication } from '../../fb';
 import {IconContainer, BtnContainer, AuthContainer, AuthTitle, OuterBox} from './AuthStyle'
 
 const useStyles = makeStyles((theme) => ({
@@ -30,8 +30,6 @@ export default function SignIn( {onClick}: AuthFormProp) {
   const [newAccount, setNewAccout] = useState(false);
   const [error, setError] = useState('');
   const { email, password } = userInfo;
-
-  const handleToggle = (): void => setNewAccout((prev: boolean) => !prev);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
