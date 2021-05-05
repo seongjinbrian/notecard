@@ -1,11 +1,18 @@
 import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Loading from "./pages/Loading";
+//alice
+import { authorization } from "./fb";
+import Loading from "./components/Loading";
+import Auth from "./pages/Auth";
+import Home from "./pages/Home";
+import Archive from "./pages/Archive";
+import Trash from "./pages/Trash";
+<!-- import Loading from "./pages/Loading";
 import Auth from "./container/Auth";
 import {authentication} from "./fb"
 import Home from "../src/components/Home"
-import {UserType} from "./model/profle"
+import {UserType} from "./model/profle" -->
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -20,7 +27,7 @@ function App() {
     return () => init();
   }, []);
 
-  let directory = user ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Auth} />;
+//   let directory = user ? <Route path="/" exact component={Home} /> : <Route path="/" exact component={Auth} />;
 
   return (
     <div>
@@ -28,7 +35,10 @@ function App() {
         <Suspense fallback={Loading()}>
         <BrowserRouter>
           <Switch>
-            {directory}
+            <Route exact path="/" component={Auth} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/archive" component={Archive} />
+            <Route exact path="/trash" component={Trash} />
           </Switch>
         </BrowserRouter>
       </Suspense>
