@@ -6,6 +6,7 @@ import Loading from "./components/Loading";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Archive from "./pages/Archive";
+import Trash from "./pages/Trash";
 function App() {
   return (
     <div>
@@ -15,6 +16,7 @@ function App() {
             <Route exact path="/" component={Auth} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/archive" component={Archive} />
+            <Route exact path="/trash" component={Trash} />
           </Switch>
         </BrowserRouter>
       </Suspense>
