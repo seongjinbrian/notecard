@@ -20,6 +20,7 @@
     "jsx": "react-jsx",
     "strict": true
   },
+  "baseUrl": "./src",
   "include": [
     "src"
   ]
