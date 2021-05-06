@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createStore} from 'redux';
+import rootReducer from '../src/reducer';
+import { Provider } from 'react-redux';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,11 +25,13 @@ const theme = createMuiTheme({
     fontFamily: "Poppins",
   },
 });
-
+const store = createStore(rootReducer);
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
     <App />
-  </ThemeProvider>,
+    </ThemeProvider>
+  </Provider>,
   document.getElementById("root")
 );
 

@@ -12,7 +12,6 @@ import Trash from "./pages/Trash";
 function App() {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState<UserType>(null);
-  let routes;
 
   useEffect(() => {
     const init = authentication.onAuthStateChanged((user) => {

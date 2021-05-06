@@ -5,4 +5,4 @@ export interface User {
     uid?: string;
     updateProfile?: ((args:any) => void) | undefined
   }
-  export type UserType = User | null;
+export type UserType = User | null;
