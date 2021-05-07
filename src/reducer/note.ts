@@ -7,13 +7,13 @@ const initialState: NoteState = {
   };
 
   const initNotes = (state: NoteState, action: InitNote) => {
-    const notes = {
+    const note = {
       ...state,
       note: action.payload,
     };
     return {
         ...state,
-        ...notes
+        ...note
     };
   };
   
@@ -39,7 +39,7 @@ const initialState: NoteState = {
     };
   };
   
-  const note = (state = initialState, action: NotesAction) => {
+  const reducer = (state = initialState, action: NotesAction) => {
     switch (action.type) {
       case actions.INIT_NOTE:
         return initNotes(state, action);
@@ -52,4 +52,4 @@ const initialState: NoteState = {
     }
   };
   
-  export default note;
+  export default reducer;
