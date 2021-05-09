@@ -24,11 +24,11 @@ const Trash: FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Header />
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>This is Trash page</Typography>
-      </main>
+      {/* <Header /> */}
+      {/* <main className={classes.content}>
+        <div className={classes.toolbar} /> */}
+      <Typography paragraph>This is Trash page</Typography>
+      {/* </main> */}
     </div>
   );
 };
