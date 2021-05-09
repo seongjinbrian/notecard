@@ -6,9 +6,11 @@ import Auth from "./container/Auth";
 import { authentication } from "./fb";
 import { UserType } from "./model/profle";
 import Archive from "./pages/Archive";
-import Home from "./pages/Home";
+import Home from "./pages/Layout";
 import Trash from "./pages/Trash";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import Note from "./pages/Hello";
+import Layout from "./pages/Layout";
 function App() {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState<UserType>(null);
@@ -47,12 +49,14 @@ function App() {
 
   let directory = user ? (
     <>
-      <ThemeProvider theme={theme}>
-      <Route path="/" exact component={Home} />
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/archive" component={Archive} />
-      <Route exact path="/trash" component={Trash} />
-      </ThemeProvider>
+      <Layout user={user}>
+        <ThemeProvider theme={theme}>
+          <Route path="/" exact component={Note} />
+          <Route exact path="/home" component={Note} />
+          <Route exact path="/archive" component={Archive} />
+          <Route exact path="/trash" component={Trash} />
+        </ThemeProvider>
+      </Layout>
     </>
   ) : (
     <Route path="/" exact component={Auth} />

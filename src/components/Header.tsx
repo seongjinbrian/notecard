@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -21,8 +21,19 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import NotesIcon from "@material-ui/icons/Notes";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { InputBase } from "@material-ui/core";
-
+import { NavProp } from "../model/profile";
+import { authentication } from "../fb";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 const drawerWidth = 240;
+
+const SignOutBtn = styled.button`
+  background: transparent;
+  display: block;
+  font-size: 1.1rem;
+  margin-top: 0.4rem;
+  text-decoration: underline;
+`;
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -130,11 +141,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer({ user }: NavProp) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const history = useHistory();
+  const [signout, setSignout] = useState(false);
 
+  const handleSignout = () => {
+    authentication
+      .signOut()
+      .then(() => {
+        console.log("error");
+      })
+      .catch((error) => {
+        console.log("Error:" + error);
+      });
+  };
+
+  const handleUserClick = () => {
+    setSignout(!signout);
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -186,7 +213,7 @@ export default function MiniDrawer() {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
+          <div className={classes.sectionDesktop} onClick={handleUserClick}>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -195,6 +222,9 @@ export default function MiniDrawer() {
             >
               <AccountCircle />
             </IconButton>
+            {signout && (
+              <SignOutBtn onClick={handleSignout}>Sign Out</SignOutBtn>
+            )}
           </div>
         </Toolbar>
       </AppBar>

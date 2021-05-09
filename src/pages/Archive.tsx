@@ -24,7 +24,7 @@ const Archive: FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Header />
+      {/* <Header /> */}
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>This is archive page</Typography>
