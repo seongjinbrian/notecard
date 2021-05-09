@@ -14,7 +14,7 @@ import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import { ViewProp } from "../model/profile";
 import { NoteObj } from "../model/Note";
-import { initNote } from "../firebase/db";
+import { initNotes } from "../firebase/db";
 import { isCompositeComponentWithType } from "react-dom/test-utils";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,12 +57,11 @@ const Layout = ({ user, children }: ViewProp) => {
   const initialNote: NoteObj = {
     title: "",
     content: "",
-    isClicked: false,
     isPinned: false,
     isArchived: false,
   };
   const [memo, setMemo] = useState<NoteObj>(initialNote);
-  const { title, content, id, isClicked, isPinned } = memo;
+  const { title, content, id, isPinned } = memo;
   const handleUpdateNote = useCallback(
     (e: UpdateNoteEvent): void => {
       const { name, value } = e.target;
@@ -84,7 +83,7 @@ const Layout = ({ user, children }: ViewProp) => {
       console.log(1);
       e.preventDefault();
       if (title !== "" && content !== "") {
-        initNote(memo);
+        initNotes(memo);
         handleResetNote();
       }
     },

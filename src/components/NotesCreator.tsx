@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { db } from "../fb";
 import { initNote, INIT_NOTE } from "../action/note";
@@ -7,7 +7,9 @@ import { NoteObj } from "../model/Note";
 import RoomOutlinedIcon from "@material-ui/icons/RoomOutlined";
 import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
-import Note from "../components/Note";
+import { initNotes } from "../firebase/db";
+// import Note from "../components/Note";
+// import { NoteObj } from "../model/Note";
 import {
   Button,
   IconButton,
@@ -34,41 +36,52 @@ const useStyles = makeStyles((theme) => ({
   button: { position: "absolute", right: 0, top: "0.5rem" },
 }));
 
+const initial: NoteObj = {
+  title: "",
+  content: "",
+  isPinned: false,
+  isArchived: false,
+};
+
 function NotesCreator() {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
-  const [title, setTitle] = useState("");
-  const [cont, setCont] = useState("");
+  const [note, setNote] = useState<NoteObj>(initial);
+  const { title, content, id, isPinned } = note;
   const [isArch, setIsArch] = useState(false);
   const [isPin, setIsPin] = useState(false);
-  const onTitleChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setTitle(event.target.value);
-  };
-  const onContChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setCont(event.target.value);
-  };
+  const handleUpdateNote = useCallback(
+    (
+      e:
+        | React.ChangeEvent<HTMLTextAreaElement>
+        | React.ChangeEvent<HTMLInputElement>
+    ): void => {
+      console.log(note);
+      const { name, value } = e.target;
+      setNote({ ...note, [name]: value });
+    },
+    [note]
+  );
   const onArchClick = () => {
+    setNote({ ...note, isArchived: !isArch });
     setIsArch(!isArch);
   };
   const onPinClick = () => {
+    setNote({ ...note, isPinned: !isPin });
     setIsPin(!isPin);
   };
-
-  const onSubmit = () => {
-    if (title.trim() === "" && cont.trim() === "") {
-      return;
+  const handleAddNote = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (title !== "" && content !== "") {
+      initNotes(note);
     }
-    const noteData: NoteObj = {
-      title: title,
-      content: cont,
-      isArchived: isArch,
-      isPinned: isPin,
-    };
   };
+
+  const handleResetNote = useCallback((): void => {
+    setNote({ ...initial });
+  }, []);
 
   return (
     <div>
@@ -81,7 +94,7 @@ function NotesCreator() {
               rowsMax={3}
               multiline
               fullWidth
-              onChange={onTitleChange}
+              onChange={handleUpdateNote}
               value={title}
               disableUnderline
               endAdornment={
@@ -98,8 +111,8 @@ function NotesCreator() {
               placeholder="Take a note..."
               multiline
               fullWidth
-              onChange={onContChange}
-              value={cont}
+              onChange={handleUpdateNote}
+              value={content}
               disableUnderline
             />
           </div>
@@ -110,9 +123,18 @@ function NotesCreator() {
             <IconButton>
               <ArchiveOutlinedIcon onClick={onArchClick} />
             </IconButton>
-            <Button className={classes.button} onClick={onSubmit}>
-              Close
-            </Button>
+            {title && content && (
+              <Button className={classes.button} onClick={handleAddNote}>
+                {" "}
+                ADD{" "}
+              </Button>
+            )}
+            {(!title || !content) && (
+              <Button className={classes.button} onClick={handleResetNote}>
+                {" "}
+                Close{" "}
+              </Button>
+            )}
           </div>
         </form>
       </div>

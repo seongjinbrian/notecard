@@ -25,6 +25,7 @@ export interface ClearNote {
 }
 
 export const initNote = (note: NoteObj[]): InitNote => {
+  console.log("action initNote");
   return {
     type: INIT_NOTE,
     payload: note,

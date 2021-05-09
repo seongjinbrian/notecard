@@ -1,6 +1,7 @@
 import { db } from "../fb";
 import { NoteObj } from "../model/Note";
-export const initNote = async (note: NoteObj): Promise<void> => {
+export const initNotes = async (note: NoteObj): Promise<void> => {
+  console.log("init_Note");
   await db.collection("notes").add(note);
 };
 

@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Loading from "./pages/Loading";
+import Loading from "./components/Loading";
 import Auth from "./container/Auth";
 import { authentication } from "./fb";
 import { UserType } from "./model/profle";

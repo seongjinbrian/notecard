@@ -17,7 +17,6 @@ function Notes() {
       const noteArr = snapshot.docs.map((doc) => ({
         id: doc.id,
         title: doc.data().title,
-        isClicked: doc.data().isChecked,
         isPinned: doc.data().isPinned,
         isArchived: doc.data().isArchived,
         content: doc.data().content,
