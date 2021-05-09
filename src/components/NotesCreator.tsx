@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { db } from "../fb";
-import { initNote } from "../action/note";
+import { initNote, INIT_NOTE } from "../action/note";
 import { RootState } from "../reducer/index";
 import { NoteObj } from "../model/Note";
 import RoomOutlinedIcon from "@material-ui/icons/RoomOutlined";
@@ -58,11 +58,17 @@ function NotesCreator() {
     setIsPin(!isPin);
   };
 
-  // const onSubmit = () => {
-  //   if (title.trim() === "" && cont.trim() === "") {
-  //     return;
-  //   }
-  // };
+  const onSubmit = () => {
+    if (title.trim() === "" && cont.trim() === "") {
+      return;
+    }
+    const noteData: NoteObj = {
+      title: title,
+      content: cont,
+      isArchived: isArch,
+      isPinned: isPin,
+    };
+  };
 
   return (
     <div>
@@ -104,7 +110,9 @@ function NotesCreator() {
             <IconButton>
               <ArchiveOutlinedIcon onClick={onArchClick} />
             </IconButton>
-            <Button className={classes.button}>Close</Button>
+            <Button className={classes.button} onClick={onSubmit}>
+              Close
+            </Button>
           </div>
         </form>
       </div>
