@@ -93,9 +93,9 @@ const Layout = ({ user, children }: ViewProp) => {
   return (
     <div className={classes.root}>
       <Header user={user} />
-      {children}
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {children}
         {/* <div
           style={{
             margin: "0 6em",

@@ -4,7 +4,8 @@ import { db } from "../fb";
 import { initNote } from "../action/note";
 import { RootState } from "../reducer/index";
 import { NoteObj } from "../model/Note";
-import Note from "../components/Note";
+import NotesCreator from "../components/NotesCreator";
+
 function Notes() {
   const notes = useSelector((state: RootState) => state.note.note).filter(
     (note: NoteObj) => note.isArchived === false
@@ -27,7 +28,7 @@ function Notes() {
   }, [dispatch]);
   return (
     <div>
-      <Note notes={notes} />
+      <NotesCreator />
     </div>
   );
 }

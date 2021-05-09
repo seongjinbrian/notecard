@@ -25,10 +25,10 @@ const Trash: FC = () => {
   return (
     <div className={classes.root}>
       {/* <Header /> */}
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>This is Trash page</Typography>
-      </main>
+      {/* <main className={classes.content}>
+        <div className={classes.toolbar} /> */}
+      <Typography paragraph>This is Trash page</Typography>
+      {/* </main> */}
     </div>
   );
 };

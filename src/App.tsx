@@ -1,16 +1,16 @@
 import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Loading from "./pages/Loading";
 import Auth from "./container/Auth";
 import { authentication } from "./fb";
 import { UserType } from "./model/profle";
 import Archive from "./pages/Archive";
-import Home from "./pages/Layout";
 import Trash from "./pages/Trash";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import Note from "./pages/Hello";
+import Note from "./pages/Notes";
 import Layout from "./pages/Layout";
+import NotFound from "./pages/NotFound";
 function App() {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState<UserType>(null);
@@ -51,10 +51,11 @@ function App() {
     <>
       <Layout user={user}>
         <ThemeProvider theme={theme}>
-          <Route path="/" exact component={Note} />
-          <Route exact path="/home" component={Note} />
+          <Route exact path="/" component={Note} />
           <Route exact path="/archive" component={Archive} />
           <Route exact path="/trash" component={Trash} />
+          <Route exact path="/404" component={NotFound} />
+          <Redirect from="*" to="/404" />
         </ThemeProvider>
       </Layout>
     </>

@@ -23,7 +23,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { InputBase } from "@material-ui/core";
 import { NavProp } from "../model/profile";
 import { authentication } from "../fb";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 const drawerWidth = 240;
 
@@ -252,21 +252,21 @@ export default function MiniDrawer({ user }: NavProp) {
         </div>
         <Divider />
         <List>
-          <ListItem button key={"Notes"}>
+          <ListItem button component={Link} to="/">
             <ListItemIcon>
               <NotesIcon />
             </ListItemIcon>
             <ListItemText primary={"Notes"} />
           </ListItem>
 
-          <ListItem button key={"Archive"}>
+          <ListItem button component={Link} to="/archive">
             <ListItemIcon>
               <ArchiveOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary={"Archive"} />
           </ListItem>
 
-          <ListItem button key={"Trash"}>
+          <ListItem button component={Link} to="/trash">
             <ListItemIcon>
               <DeleteOutlinedIcon />
             </ListItemIcon>
