@@ -15,5 +15,4 @@ export interface NoteObj {
   content: string;
   isArchived: boolean;
   isPinned: boolean;
-  isClicked: boolean;
 }
